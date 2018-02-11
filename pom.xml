@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.maven.multimodule</groupId>
+	<artifactId>com-maven-multimodule</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>com-maven-multimodule</name>
+	<modules>
+		<module>com-maven-module1</module>
+		<module>com-maven-module2</module>
+	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.atlassian.maven.plugins</groupId>
+				<artifactId>maven-jgitflow-plugin</artifactId>
+				<version>1.0-alpha20</version>
+				<configuration>
+					<!-- Enable this to push to origin using SSH keys -->
+					<enableSshAgent>true</enableSshAgent>
+					<!-- Keep your maven submodules at the same version as the parent POM -->
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<!-- Pusing in-development features to origin allows all devs to see 
+						what each other are working on -->
+					<pushFeatures>true</pushFeatures>
+					<!-- This allows the CI server (e.g. Jenkins) to automatically push 
+						new releases to origin; you can then either manually deploy them or, if you 
+						are doing Continuous Deployments, auto-deploy them to prod -->
+					<pushReleases>true</pushReleases>
+					<!-- Hot Fixes should be pushed to origin as well so that any dev can 
+						pick them up -->
+					<pushHotfixes>true</pushHotfixes>
+					<!-- Prevents deployments from dev workstations so that they can be 
+						done by a CI server -->
+					<noDeploy>true</noDeploy>
+					<flowInitContext>
+						<developBranchName>develop</developBranchName>
+						<masterBranchName>master</masterBranchName>
+						<releaseBranchPrefix>release</releaseBranchPrefix>
+						<versionTagPrefix>rev-</versionTagPrefix>
+					</flowInitContext>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
